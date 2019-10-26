@@ -578,14 +578,14 @@ final class MailReceipt
         $email = $this->order['user']['shippingInfo']['email']['address'];
 
         if(mail($email,"AVA Cosmetics Receipt", $this->foo(), $headers))
+        {
             Logger::logMsg("MAIL","Email successful");
+        }
         else
         {
-            $e=error_get_last();
-
             $errorMessage = error_get_last()['message'];
-            throw new ApiException("Mail was not sent!{$errorMessage}",101);
             Logger::logMsg("MAIL","Email NOT successful");
+            throw new ApiException("Mail was not sent!{$errorMessage}",101);
         }
     }
 }

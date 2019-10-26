@@ -24,10 +24,13 @@ final class Mail extends UserAuthorizedController
     {
         $order = $this->getJsonData();
 
-        $sendMail = new MailReceipt($order);
-        $sendMail->sendMailReceipt();
-
-        $result = "success";
+        try {
+            $sendMail = new MailReceipt($order);
+            $sendMail->sendMailReceipt();
+            $result = "success";
+        } catch (ApiException $e) {
+            $result = "mail was not sent";
+        }
 
         $this->send($result);
     }
